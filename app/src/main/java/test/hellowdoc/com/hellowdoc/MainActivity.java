@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements
             mMyAdapter.setOnBottomReachedListener(this);
         } else {
             mMyAdapter.updateList(dataModel.getHits());
-//            scrolledPosition
+            mRecyclerView.scrollToPosition(scrolledPosition);
         }
 
         reloadOnTextSearch = false;
