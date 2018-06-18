@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
-import android.view.View;
 
 public class MainActivity extends AppCompatActivity implements
         MyAsyncTask.MyAsyncTaskListener, OnBottomReachedListener {
@@ -73,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void fetchAndLoadData(String url) {
-        final String completeUrl = url.concat(query).concat(page).concat(String.valueOf(++currentPage));
+        final String completeUrl = url.concat(query).concat(page).concat(String.valueOf(1 + currentPage));
         mMyAsyncTask = new MyAsyncTask(this, completeUrl, this);
         mMyAsyncTask.execute();
     }

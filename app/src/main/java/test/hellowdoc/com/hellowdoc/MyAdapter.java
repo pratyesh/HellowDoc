@@ -25,11 +25,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.BaseViewHolder> {
         notifyDataSetChanged();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return R.layout.item;
+    }
+
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item, parent, false);
+                .inflate(viewType, parent, false);
         return new BaseViewHolder(view);
     }
 

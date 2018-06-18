@@ -53,7 +53,7 @@ public class MyAsyncTask extends AsyncTask<Void, Void, ResponseDetails> {
 
             responseDetails = GsonUtil.fromJson(responseJson, ResponseDetails.class, url);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.d(TAG + " : ERR", e.getMessage());
         }
 
         return responseDetails;
