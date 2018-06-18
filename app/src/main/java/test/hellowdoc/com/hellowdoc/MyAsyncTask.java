@@ -1,6 +1,5 @@
 package test.hellowdoc.com.hellowdoc;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -11,7 +10,6 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
-import java.lang.ref.WeakReference;
 
 public class MyAsyncTask extends AsyncTask<Void, Void, ResponseDetails> {
     private static final String TAG = MyAsyncTask.class.getSimpleName();
@@ -21,14 +19,12 @@ public class MyAsyncTask extends AsyncTask<Void, Void, ResponseDetails> {
     }
 
     private MyAsyncTaskListener mMyAsyncTaskListener;
-    private WeakReference<Context> mContext;
     private String url;
 
     private boolean isCanceled;
     private Call call;
 
-    public MyAsyncTask(@NonNull Context context, String url, @NonNull MyAsyncTaskListener listener) {
-        this.mContext = new WeakReference<>(context);
+    public MyAsyncTask(String url, @NonNull MyAsyncTaskListener listener) {
         this.url = url;
         this.mMyAsyncTaskListener = listener;
     }

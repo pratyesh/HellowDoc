@@ -20,9 +20,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.BaseViewHolder> {
         mDataModelList = dataModelList;
     }
 
-    public void updateList(List<DataModel> dataModelList) {
+    public void updateList(@NonNull List<DataModel> dataModelList) {
+        final int startPosition = getItemCount();
+        final int count = dataModelList != null && !dataModelList.isEmpty() ? dataModelList.size() : 0;
         mDataModelList.addAll(dataModelList);
-        notifyDataSetChanged();
+//        notifyDataSetChanged();
+        notifyItemRangeInserted(startPosition, count);
     }
 
     @Override
@@ -59,7 +62,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.BaseViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mDataModelList != null ? mDataModelList.size() : 0;
+        return mDataModelList != null && !mDataModelList.isEmpty() ? mDataModelList.size() : 0;
     }
 
     public void setOnBottomReachedListener(OnBottomReachedListener onBottomReachedListener) {

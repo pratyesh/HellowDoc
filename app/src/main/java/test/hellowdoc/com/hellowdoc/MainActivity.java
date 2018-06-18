@@ -6,6 +6,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.ProgressBar;
 
 public class MainActivity extends AppCompatActivity implements
         MyAsyncTask.MyAsyncTaskListener, OnBottomReachedListener {
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements
     private RecyclerView mRecyclerView;
     private MyAsyncTask mMyAsyncTask;
     private MyAdapter mMyAdapter;
+    private ProgressBar progressBar;
 
     private int currentPage;
 
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements
         });
 
         mRecyclerView = findViewById(R.id.list_item);
+        progressBar = findViewById(R.id.progressBar);
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -72,8 +76,9 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void fetchAndLoadData(String url) {
+        progressBar.setVisibility(View.VISIBLE);
         final String completeUrl = url.concat(query).concat(page).concat(String.valueOf(1 + currentPage));
-        mMyAsyncTask = new MyAsyncTask(this, completeUrl, this);
+        mMyAsyncTask = new MyAsyncTask(completeUrl, this);
         mMyAsyncTask.execute();
     }
 
@@ -83,12 +88,16 @@ public class MainActivity extends AppCompatActivity implements
         mMyAsyncTask = null;
         mRecyclerView = null;
         mMyAdapter = null;
+        progressBar.setVisibility(View.GONE);
+        progressBar = null;
         currentPage = 0;
         super.onDestroy();
     }
 
     @Override
     public void onTaskCompleted(ResponseDetails dataModel) {
+
+        progressBar.setVisibility(View.GONE);
 
         if (dataModel == null) {
             return;
